@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 16:12:43 by jthuysba          #+#    #+#             */
-/*   Updated: 2022/12/16 18:02:03 by jthuysba         ###   ########.fr       */
+/*   Created: 2022/05/05 17:23:34 by jthuysba          #+#    #+#             */
+/*   Updated: 2022/05/12 12:45:18 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include "./libft/libft.h"
-
-typedef struct s_pipex
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*infile;
-	char	*outfile;
-	char	**cmd1;
-	char	**cmd2;
-	char	**path;
-}	t_pipex;
+	size_t			i;
+	unsigned char	*ps;
 
-#endif
+	i = 0;
+	ps = (unsigned char *)s;
+	while (i < n)
+	{
+		if (ps[i] == (unsigned char)c)
+			return (ps + i);
+		i++;
+	}
+	return (NULL);
+}
+/*
+int main()
+{
+    char    s[50] = "Salut";
+
+    printf("%p\n", ft_memchr(s, 2 + 256, 3));
+    printf("%p", memchr(s, 2 + 256, 3));
+}
+*/

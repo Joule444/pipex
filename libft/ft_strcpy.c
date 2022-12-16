@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 16:12:43 by jthuysba          #+#    #+#             */
-/*   Updated: 2022/12/16 18:02:03 by jthuysba         ###   ########.fr       */
+/*   Created: 2022/12/16 17:05:13 by jthuysba          #+#    #+#             */
+/*   Updated: 2022/12/16 17:10:00 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include "./libft/libft.h"
-
-typedef struct s_pipex
+void	ft_strcpy(char *dest, char *src)
 {
-	char	*infile;
-	char	*outfile;
-	char	**cmd1;
-	char	**cmd2;
-	char	**path;
-}	t_pipex;
+	int	i;
 
-#endif
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+}

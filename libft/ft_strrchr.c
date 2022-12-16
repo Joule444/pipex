@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 16:12:43 by jthuysba          #+#    #+#             */
-/*   Updated: 2022/12/16 18:02:03 by jthuysba         ###   ########.fr       */
+/*   Created: 2022/05/05 15:54:09 by jthuysba          #+#    #+#             */
+/*   Updated: 2022/05/16 14:20:06 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include "./libft/libft.h"
-
-typedef struct s_pipex
+char	*ft_strrchr(const char *s, int c)
 {
-	char	*infile;
-	char	*outfile;
-	char	**cmd1;
-	char	**cmd2;
-	char	**path;
-}	t_pipex;
+	int	i;
 
-#endif
+	i = 0;
+	if (ft_strlen(s) > 0)
+		i = ft_strlen(s) - 1;
+	if (c == 0)
+		return ((char *)s + ft_strlen(s));
+	while (i >= 0)
+	{
+		if (s[i] == (unsigned char)c)
+			return ((char *)s + i);
+		i--;
+	}
+	return (NULL);
+}
+/*
+#include <stdio.h>
+
+int main ()
+{
+	char	s[15] = "bonjour";
+	printf("%s", ft_strrchr(s, 's'));
+}
+*/

@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 16:12:43 by jthuysba          #+#    #+#             */
-/*   Updated: 2022/12/16 18:02:03 by jthuysba         ###   ########.fr       */
+/*   Created: 2022/05/07 15:48:20 by jthuysba          #+#    #+#             */
+/*   Updated: 2022/05/07 15:59:13 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include "./libft/libft.h"
-
-typedef struct s_pipex
+char	*ft_strdup(const char *s)
 {
-	char	*infile;
-	char	*outfile;
-	char	**cmd1;
-	char	**cmd2;
-	char	**path;
-}	t_pipex;
+	size_t	i;
+	char	*dest;
 
-#endif
+	i = 0;
+	dest = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!dest)
+		return (NULL);
+	while (s[i])
+	{
+		dest[i] = s[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+/*
+int main ()
+{
+	char	s[15] = "Salut";
+	printf("%p\n", ft_strdup(s));
+	printf("%s\n", ft_strdup(s));
+	printf("%p\n", s);
+}
+*/

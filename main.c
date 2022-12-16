@@ -6,12 +6,13 @@
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:04 by jthuysba          #+#    #+#             */
-/*   Updated: 2022/12/16 18:21:32 by jthuysba         ###   ########.fr       */
+/*   Updated: 2022/12/16 19:38:53 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+//Retourne la liste des paths possibles
 char	**find_path(char **env)
 {
 	int		i;
@@ -33,6 +34,7 @@ char	**find_path(char **env)
 	return (NULL);
 }
 
+//Execute la commande avec le bon path
 void	exec_path(char **cmd, char **path, char **env)
 {
 	int		i;

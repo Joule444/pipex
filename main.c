@@ -52,16 +52,44 @@ void	exec_path(char **cmd, char **path, char **env)
 	}
 }
 
-int	main(int argc, char **argv, char **env)
-{
-	t_pipex	pipex;
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_pipex	pipex;
 
-	if (argc != 5)
-		return (0);
-	pipex.cmd1 = ft_split(argv[2], ' ');
-	pipex.cmd2 = ft_split(argv[3], ' ');
-	pipex.path = find_path(env);
-	exec_path(pipex.cmd1, pipex.path, env);
-	return (ft_free_arr(pipex.cmd1), ft_free_arr(pipex.cmd2),
-		ft_free_arr(pipex.path), 0);
+// 	if (argc != 5)
+// 		return (0);
+// 	pipex.cmd1 = ft_split(argv[2], ' ');
+// 	pipex.cmd2 = ft_split(argv[3], ' ');
+// 	pipex.path = find_path(env);
+// 	exec_path(pipex.cmd1, pipex.path, env);
+// 	return (ft_free_arr(pipex.cmd1), ft_free_arr(pipex.cmd2),
+// 		ft_free_arr(pipex.path), 0);
+// }
+
+int	main()
+{
+	int id = fork();
+	int	n;
+
+	if (id == 0)
+		n = 1;
+	else
+		n = 6;
+	if (id != 0)
+		wait();
+	int i = n;
+	while (i < n + 5)
+	{
+		printf("%d\n", i);
+		fflush(stdout);
+		i++;
+	}
+	// if (id != 0)
+	// 	id = fork();
+	// printf("Hello World from %d process !\n", id);
+	// if (id == 0)
+	// 	printf("Hello from the child process !\n");
+	// else
+	// 	printf("Hello from the main process !\n");
+	return 0;
 }

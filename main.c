@@ -74,7 +74,7 @@ int	main(int argc, char **argv, char **env)
 	ft_strcpy(pipex.outfile, argv[4]);
 
 	in_fd = open(pipex.infile, O_RDONLY, 0777);
-	out_fd = open(pipex.outfile, O_WRONLY | O_CREAT, 0777);
+	out_fd = open(pipex.outfile, O_WRONLY | O_TRUNC| O_CREAT, 0777);
 
 	if (pipe(pipe_fd) == -1)
 		return (2);
@@ -99,7 +99,7 @@ int	main(int argc, char **argv, char **env)
 	if (pid2 == 0) //Child process 2 (cmd2)
 	{
 		dup2(out_fd, STDOUT_FILENO);
-		close(out_fd)
+		close(out_fd);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);

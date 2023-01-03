@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:12:43 by jthuysba          #+#    #+#             */
-/*   Updated: 2022/12/16 18:02:03 by jthuysba         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:37:35 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ typedef struct s_pipex
 	char	**cmd1;
 	char	**cmd2;
 	char	**path;
+	int		in_fd;
+	int		out_fd;
+	int		pipe_fd[2];
 }	t_pipex;
+
+//Exec cmd
+void	exec_cmd1(t_pipex pipex, char **env);
+void	exec_cmd2(t_pipex pipex, char **env);
 
 #endif

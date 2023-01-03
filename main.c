@@ -6,7 +6,7 @@
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:04 by jthuysba          #+#    #+#             */
-/*   Updated: 2022/12/16 19:38:53 by jthuysba         ###   ########.fr       */
+/*   Updated: 2023/01/03 15:00:04 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,44 +52,65 @@ void	exec_path(char **cmd, char **path, char **env)
 	}
 }
 
-// int	main(int argc, char **argv, char **env)
-// {
-// 	t_pipex	pipex;
-
-// 	if (argc != 5)
-// 		return (0);
-// 	pipex.cmd1 = ft_split(argv[2], ' ');
-// 	pipex.cmd2 = ft_split(argv[3], ' ');
-// 	pipex.path = find_path(env);
-// 	exec_path(pipex.cmd1, pipex.path, env);
-// 	return (ft_free_arr(pipex.cmd1), ft_free_arr(pipex.cmd2),
-// 		ft_free_arr(pipex.path), 0);
-// }
-
-int	main()
+int	main(int argc, char **argv, char **env)
 {
-	int id = fork();
-	int	n;
+	t_pipex	pipex;
+	int		pipe_fd[2];
+	int		in_fd;
+	int		out_fd;
+	int		pid1;
+	int		pid2;
 
-	if (id == 0)
-		n = 1;
-	else
-		n = 6;
-	if (id != 0)
-		wait();
-	int i = n;
-	while (i < n + 5)
+	if (argc != 5)
+		return (1);
+	pipex.cmd1 = ft_split(argv[2], ' ');
+	pipex.cmd2 = ft_split(argv[3], ' ');
+	pipex.path = find_path(env);
+
+	pipex.infile = malloc(sizeof(char) * ft_strlen(argv[1]) + 1);
+	ft_strcpy(pipex.infile, argv[1]);
+
+	pipex.outfile = malloc(sizeof(char) * ft_strlen(argv[4]) + 1);
+	ft_strcpy(pipex.outfile, argv[4]);
+
+	in_fd = open(pipex.infile, O_RDONLY, 0777);
+	out_fd = open(pipex.outfile, O_WRONLY | O_CREAT, 0777);
+
+	if (pipe(pipe_fd) == -1)
+		return (2);
+		
+	pid1 = fork();
+	if (pid1 < 0)
+		return (3);
+		
+	if (pid1 == 0) //Child process (cmd1)
 	{
-		printf("%d\n", i);
-		fflush(stdout);
-		i++;
+		dup2(in_fd, STDIN_FILENO);
+		close(in_fd);
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[1]);	//Car le fd de stdout correspond a celui la dorenavant 
+		close(pipe_fd[0]);	//Car on n'a pas besoin de read
+		exec_path(pipex.cmd1, pipex.path, env);
 	}
-	// if (id != 0)
-	// 	id = fork();
-	// printf("Hello World from %d process !\n", id);
-	// if (id == 0)
-	// 	printf("Hello from the child process !\n");
-	// else
-	// 	printf("Hello from the main process !\n");
-	return 0;
+	pid2 = fork();
+	if (pid2 < 0)
+		return (4);
+
+	if (pid2 == 0) //Child process 2 (cmd2)
+	{
+		dup2(out_fd, STDOUT_FILENO);
+		close(out_fd)
+		dup2(pipe_fd[0], STDIN_FILENO);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		exec_path(pipex.cmd2, pipex.path, env);
+	} 
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
+
+	return (ft_free_arr(pipex.cmd1), ft_free_arr(pipex.cmd2),
+		ft_free_arr(pipex.path), 0);
 }

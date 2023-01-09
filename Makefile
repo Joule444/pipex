@@ -8,7 +8,7 @@ LIBFT        = ./libft/libft.a
 
 MLX        = ./mlx/libmlx.a
 
-SRCS        = main.c exec_cmd.c
+SRCS        = main.c child_process.c free_all.c find_path.c
 
 OBJS        = ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:38:16 by jthuysba          #+#    #+#             */
-/*   Updated: 2022/12/16 17:21:51 by jthuysba         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:42:33 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ void	ft_free_arr(char **arr)
 	int	i;
 
 	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
+	if (arr)
+	{	
+		while (arr[i])
+		{
+			free(arr[i]);
+			i++;
+		}
 	}
 	free(arr[i]);
 	free(arr);

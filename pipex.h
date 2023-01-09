@@ -6,7 +6,7 @@
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:12:43 by jthuysba          #+#    #+#             */
-/*   Updated: 2023/01/09 17:58:36 by jthuysba         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:51:58 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct s_pipex
 	char	**path;
 }	t_pipex;
 
+//Init Data
+void	init_data(t_pipex *pipex);
+
 //Find path
 char	**get_path(char **env);
 char	*find_path(char **cmd, char **path);
@@ -49,6 +52,6 @@ void	child2(t_pipex pipex, char **env);
 
 //Free all
 void	free_all(t_pipex *pipex);
-void	print_error(char *msg, t_pipex *pipex);
+void	print_error(char *msg);
 
 #endif

@@ -6,38 +6,40 @@
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:57:35 by jthuysba          #+#    #+#             */
-/*   Updated: 2023/01/09 18:34:02 by jthuysba         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:05:33 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+int	my_strcat(char *dest, char *src, int j)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dest[j] = src[i];
+		i++;
+		j++;
+	}
+	return (j);
+}
+
+//Join le path et la commande avec un '/'
 char	*path_join(char *path, char *cmd)
 {
 	char	*full_path;
-	int		i;
 	int		j;
 
-	i = 0;
 	j = 0;
 	full_path = malloc(sizeof(char) * ft_strlen(path) + ft_strlen(cmd) + 2);
 	if (!full_path)
 		return (NULL);
-	while (path[i])
-	{
-		full_path[j] = path[i];
-		i++;
-		j++;
-	}
+	j = my_strcat(full_path, path, j);
 	full_path[j] = '/';
 	j++;
-	i = 0;
-	while (cmd[i])
-	{
-		full_path[j] = cmd[i];
-		i++;
-		j++;
-	}
+	j = my_strcat(full_path, cmd, j);
 	full_path[j] = '\0';
 	return (full_path);
 }
@@ -68,6 +70,19 @@ char	**get_path(char **env)
 	return (NULL);
 }
 
+//Retourne le path absolu
+char	*abs_path(char **cmd)
+{
+	char	*abs_path;
+
+	abs_path = malloc(sizeof(char) * (ft_strlen(cmd[0]) + 1));
+	ft_strcpy(abs_path, cmd[0]);
+	if (access(abs_path, F_OK) == 0)
+		return (abs_path);
+	else
+		return (free(abs_path), NULL);
+}
+
 //Retourne le path de la commande
 char	*find_path(char **cmd, char **path)
 {
@@ -75,6 +90,8 @@ char	*find_path(char **cmd, char **path)
 	char	*full_path;
 
 	i = 0;
+	if (cmd[0][0] == '/')
+		return (abs_path(cmd));
 	while (path[i])
 	{
 		full_path = path_join(path[i], cmd[0]);

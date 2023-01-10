@@ -6,7 +6,7 @@
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:53:48 by jthuysba          #+#    #+#             */
-/*   Updated: 2023/01/09 19:52:44 by jthuysba         ###   ########.fr       */
+/*   Updated: 2023/01/10 13:45:37 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_error(char *msg)
 	i = 0;
 	while (msg[i])
 	{
-		write(1, &msg[i],1);
+		write(1, &msg[i], 1);
 		i++;
 	}
 }

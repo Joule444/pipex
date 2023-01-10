@@ -6,7 +6,7 @@
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:12:43 by jthuysba          #+#    #+#             */
-/*   Updated: 2023/01/09 19:51:58 by jthuysba         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:18:24 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_cmd
 	char	*path;
 	char	*file;
 	int		fd;
+	pid_t	pid;
 }	t_cmd;
 
 typedef struct s_pipex

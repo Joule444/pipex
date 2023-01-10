@@ -6,7 +6,7 @@
 /*   By: jthuysba <jthuysba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:04 by jthuysba          #+#    #+#             */
-/*   Updated: 2023/01/09 19:55:25 by jthuysba         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:32:08 by jthuysba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	set_data(t_pipex *pipex, char **argv, char **env)
 	if (!pipex->cmd1.cmd || !pipex->cmd2.cmd)
 		return (print_error("Split error\n"), 1);
 	pipex->path = get_path(env);
+	if (pipex->path == NULL)
+		return (print_error("Path error\n"), 1);
 	pipex->cmd1.path = find_path(pipex->cmd1.cmd, pipex->path);
 	pipex->cmd2.path = find_path(pipex->cmd2.cmd, pipex->path);
-	if (pipex->path == NULL || pipex->cmd1.path == NULL || pipex->cmd2.path == NULL)
-		return (print_error("Path error\n"), 1);
+	if (pipex->cmd1.path == NULL || pipex->cmd2.path == NULL)
+		return (print_error("Cmd path error\n"), 1);
 	pipex->cmd1.file = malloc(sizeof(char) * ft_strlen(argv[1]) + 1);
 	pipex->cmd2.file = malloc(sizeof(char) * ft_strlen(argv[4]) + 1);
 	if (!pipex->cmd1.file || !pipex->cmd2.file)
@@ -58,11 +60,13 @@ int	main(int argc, char **argv, char **env)
 	t_pipex	pipex;
 	pid_t		pid1;
 	pid_t		pid2;
+	int			set;
 
 	if (check_args(argc, argv) == 1)
 		return (print_error("Args error\n"), 1);
 	init_data(&pipex);
-	if (set_data(&pipex, argv, env) == 1)
+	set = set_data(&pipex, argv, env);
+	if (set == 1)
 		return (free_all(&pipex), 5);
 	if (pipe(pipex.pipe_fd) == -1)
 		return (print_error("Pipe error\n"), free_all(&pipex), 2);
